@@ -35,13 +35,12 @@ const Index = ({
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Link href="/login">Login</Link>
+        <Link href="/">Home</Link>
         <Typography
           className={classes.title}
           color='textSecondary'
           gutterBottom
         >
-          Dispatched from <b>{from}</b>
         </Typography>
         <Typography variant='h3' component='h2'>
           {value}
@@ -53,7 +52,7 @@ const Index = ({
           variant='round'
           color='primary'
           size='small'
-          onClick={() => set_data({value:value+1})}
+          onClick={() => set_data({value:10})}
         >
           <AddIcon />
         </Fab>
@@ -61,7 +60,7 @@ const Index = ({
           variant='round'
           color='secondary'
           size='small'
-          onClick={() => set_data({value:value-1})}
+          onClick={() => set_data({value:20})}
         >
           <RemoveIcon />
         </Fab>
@@ -71,9 +70,6 @@ const Index = ({
 }
 
 Index.getInitialProps = ({ store }) => {
-
-  Cookies.set('name', 'value');
-  
   store.dispatch({
     type: 'SET_DATA'
   })
