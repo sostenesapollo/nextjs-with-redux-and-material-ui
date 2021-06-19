@@ -5,6 +5,7 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
     "@material-ui/styles": "latest",
+    "js-cookie": "^2.2.1",
     "next": "latest",
     "next-redux-wrapper": "latest",
     "react": "^16.8.0",

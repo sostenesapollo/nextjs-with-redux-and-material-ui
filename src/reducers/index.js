@@ -1,10 +1,10 @@
 export const initialState = {
-  value: 0,
   action: null,
+  darkMode: false
 }
 
 export const set_data = (state = initialState, action) => {
-  console.log('set data', state);
+  // console.log('set data', state);
   switch (action.type) {
     case 'SET_DATA':
       return {

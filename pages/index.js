@@ -4,13 +4,13 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
-import RemoveIcon from '@material-ui/icons/Remove'
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Typography from '@material-ui/core/Typography'
 import Link from 'next/link'
 import { connect } from 'react-redux'
 import { set_data } from '../src/actions'
 import { bindActionCreators } from 'redux'
+import cookie from 'js-cookie'
 
 const useStyles = makeStyles({
   container: {
@@ -22,62 +22,55 @@ const useStyles = makeStyles({
   }
 })
 
-const Index = ({
-  value,
-  from,
-  action,
-  actions: {
-    set_data
-  }
-}) => {
+const Index = (props) => {
+
+  console.log(props);
+
   const classes = useStyles()
+  const [darkMode, setDarkMode] = React.useState(true)
+
+  const toggleColorTheme = () => {
+
+    set_data({
+      type: 'SET_DATA',
+      darkMode: !cookie.get("darkmode")==='true'
+    })
+
+    if(cookie.get("darkmode"))
+      return cookie.set("darkmode", cookie.get("darkmode")==='true' ?  "false" : "true")
+    console.log('2');
+    return cookie.set("darkmode", "false")
+  }
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Link href="/login">Login</Link>
-        <Typography
-          className={classes.title}
-          color='textSecondary'
-          gutterBottom
-        >
-          Dispatched from <b>{from}</b>
-        </Typography>
-        <Typography variant='h3' component='h2'>
-          {value}
-        </Typography>
-        <Typography color='textSecondary'>{action}</Typography>
-      </CardContent>
-      <CardActions>
-        <Fab
-          variant='round'
-          color='primary'
-          size='small'
-          onClick={() => set_data({value:value+1})}
-        >
-          <AddIcon />
-        </Fab>
-        <Fab
-          variant='round'
-          color='secondary'
-          size='small'
-          onClick={() => set_data({value:value-1})}
-        >
-          <RemoveIcon />
-        </Fab>
-      </CardActions>
-    </Card>
+    <>
+      <Card className={classes.card}>
+        <CardContent>
+          <Link href="/login">Login</Link>
+          <Typography
+            className={classes.title}
+            color='textSecondary'
+            gutterBottom
+          >
+            Done {darkMode ? "Dark" : "Default"}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Fab
+            variant='round'
+            color='primary'
+            size='small'
+            onClick={toggleColorTheme}
+          >
+            <Brightness4Icon />
+          </Fab>
+        </CardActions>
+      </Card>
+    </>
   )
 }
 
 Index.getInitialProps = ({ store }) => {
-
-  Cookies.set('name', 'value');
-  
-  store.dispatch({
-    type: 'SET_DATA'
-  })
-
   return {}
 }
 
